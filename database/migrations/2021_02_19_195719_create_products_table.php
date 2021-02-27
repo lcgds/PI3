@@ -17,7 +17,7 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('description');
-            $table->decimal('price', 4, 2);
+            $table->decimal('price', 5, 2);
             $table->timestamps();
         });
     }
