@@ -18,7 +18,9 @@ class Categories extends Controller
 
     public function store(Request $request) {
         Category::create($request->all());
+
         session()->flash('success', 'Corredor cadastrado com sucesso!');
+
         return redirect(route('category.index'));
     }
 
