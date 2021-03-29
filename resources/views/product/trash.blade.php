@@ -2,11 +2,11 @@
 <html lang="pt-br">
 
 <head>
-    <title>Lista de Produtos</title>
+    <title>Lista de Produtos Desativados</title>
     @include('layouts.links')
     <script>
-        function remover() {
-            return confirm('Você deseja desativar o produto?');
+        function restaurar() {
+            return confirm('Você deseja restaurar o produto?');
         }
 
     </script>
@@ -20,9 +20,9 @@
                 {{ session()->get('success') }}
             </div>
         @endif
-        <h1 class="my-4">Lista de Produtos</h1>
+        <h1 class="my-4">Lista de Produtos Desativados</h1>
         <table class="table table-bordered table-hover caption-top">
-            <caption>Tabela de produtos cadastrados</caption>
+            <caption>Tabela de produtos desativados</caption>
             <thead class="table-dark">
                 <tr>
                     <th>#</th>
@@ -44,26 +44,19 @@
                         <td>R$ {{ $product->price }}</td>
                         <td>{{ $product->category->name }}</td>
                         <td>
-                            <a href="#" class="btn btn-sm btn-primary">Visualizar</a>
-                            <a href="{{ route('product.edit', $product->id) }}"
-                                class="btn btn-sm btn-warning">Editar</a>
-
                             <form class="d-inline" method="POST"
-                                action="{{ route('product.destroy', $product->id) }}"
-                                onsubmit="return remover();">
+                                action="{{ route('product.restore', $product->id) }}"
+                                onsubmit="return restaurar();">
                                 @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger d-inline">Desativar</button>
+                                @method('PATCH')
+                                <button type="submit" class="btn btn-sm btn-success d-inline">Restaurar</button>
                             </form>
-
                         </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
-        <a class="my-4 btn btn-sm btn-success" href="{{ route('product.create') }}">Cadastrar novo
-            produto</a>
-        <a class="my-4 btn btn-sm btn-secondary" href="{{ route('product.trash') }}">Verificar produtos inativos</a>
+        <a class="my-4 btn btn-sm btn-primary" href="{{ route('product.index') }}">Verificar produtos ativos</a>
     </main>
 </body>
 

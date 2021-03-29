@@ -2,11 +2,11 @@
 <html lang="pt-br">
 
 <head>
-    <title>Lista de Tags</title>
+    <title>Lista de Tags Desativadas</title>
     @include('layouts.links')
     <script>
-        function remover() {
-            return confirm('Você deseja desativar a tag?');
+        function restaurar() {
+            return confirm('Você deseja restaurar a tag?');
         }
 
     </script>
@@ -22,9 +22,9 @@
             </div>
         @endif
 
-        <h1 class="my-4">Lista de Tags</h1>
+        <h1 class="my-4">Lista de Tags Desativadas</h1>
         <table class="table table-bordered table-hover caption-top">
-            <caption>Tabela de tags cadastradas</caption>
+            <caption>Tabela de tags desativadas</caption>
             <thead class="table-dark">
                 <tr>
                     <th>#</th>
@@ -39,26 +39,20 @@
                         <td>{{ $tag->id }}</td>
                         <td>{{ $tag->name }}</td>
                         <td>
-                            <a href=" {{ route('tag.edit', $tag->id) }}"
-                                class="btn btn-sm btn-warning">Editar</a>
-
                             <form class="d-inline" method="POST"
-                                action="{{ route('tag.destroy', $tag->id) }}"
-                                onsubmit="return remover();">
+                                action="{{ route('tag.restore', $tag->id) }}"
+                                onsubmit="return restaurar();">
                                 @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger d-inline">Desativar</button>
+                                @method('PATCH')
+                                <button type="submit" class="btn btn-sm btn-success d-inline">Restaurar</button>
                             </form>
-
                         </td>
                     </tr>
                 @endforeach
 
             </tbody>
         </table>
-        <a class="my-4 btn btn-sm btn-success" href=" {{ route('tag.create') }}">Cadastrar nova
-            tag</a>
-        <a class="my-4 btn btn-sm btn-secondary" href="{{ route('tag.trash') }}">Verificar tags inativas</a>
+        <a class="my-4 btn btn-sm btn-primary" href="{{ route('tag.index') }}">Verificar tags ativas</a>
     </main>
 </body>
 

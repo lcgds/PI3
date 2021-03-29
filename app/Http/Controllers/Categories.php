@@ -25,6 +25,11 @@ class Categories extends Controller
         return redirect(route('category.index'));
     }
 
+    public function show(Category $category)
+    {
+        //
+    }
+
     public function edit(Category $category) {
         return view('category.edit')->with('category', $category);
     }
@@ -37,7 +42,20 @@ class Categories extends Controller
 
     public function destroy(Category $category) {
         $category->delete();
-        session()->flash('success', 'Corredor excluído com sucesso!');
-        return \redirect(route('category.index'));
+        session()->flash('success', 'Corredor desativado com sucesso!');
+        return redirect(route('category.index'));
+    }
+
+    public function trash() {
+        return view('category.trash')->with('categories', Category::onlyTrashed()->get());
+    }
+
+    public function restore($id) {
+        $category = Category::onlyTrashed()
+                            ->where('id', $id)
+                            ->firstOrFail();
+        $category->restore();
+        session()->flash('success', 'Corredor restaurado com sucesso!');
+        return redirect(route('category.trash'));
     }
 }

@@ -2,11 +2,11 @@
 <html lang="pt-br">
 
 <head>
-    <title>Lista de Corredores</title>
+    <title>Lista de Corredores Desativados</title>
     @include('layouts.links')
     <script>
-        function remover() {
-            return confirm('Você deseja desativar a categoria?');
+        function restaurar() {
+            return confirm('Você deseja restaurar a categoria?');
         }
 
     </script>
@@ -24,9 +24,9 @@
             </div>
         @endif
 
-        <h1 class="my-4">Lista de Corredores</h1>
+        <h1 class="my-4">Lista de Corredores Desativados</h1>
         <table class="table table-bordered table-hover caption-top">
-            <caption>Tabela de corredores cadastrados</caption>
+            <caption>Tabela de corredores desativados</caption>
             <thead class="table-dark">
                 <tr>
                     <th>#</th>
@@ -43,26 +43,20 @@
                         <td>{{ $category->name }}</td>
                         <td>{{ $category->products->count() }}</td>
                         <td>
-                            <a href="{{ route('category.edit', $category->id) }}"
-                                class="btn btn-sm btn-warning">Editar</a>
-
                             <form class="d-inline" method="POST"
-                                action="{{ route('category.destroy', $category->id) }}"
-                                onsubmit="return remover();">
+                                action="{{ route('category.restore', $category->id) }}"
+                                onsubmit="return restaurar();">
                                 @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger d-inline">Desativar</button>
+                                @method('PATCH')
+                                <button type="submit" class="btn btn-sm btn-success d-inline">Restaurar</button>
                             </form>
-
                         </td>
                     </tr>
                 @endforeach
 
             </tbody>
         </table>
-        <a class="my-4 btn btn-sm btn-success" href="{{ route('category.create') }}">Cadastrar novo
-            corredor</a>
-        <a class="my-4 btn btn-sm btn-secondary" href="{{ route('category.trash') }}">Verificar corredores inativos</a>
+        <a class="my-4 btn btn-sm btn-primary" href="{{ route('category.index') }}">Verificar categorias ativas</a>
     </main>
 </body>
 

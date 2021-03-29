@@ -23,6 +23,11 @@ class Products extends Controller
         return redirect(route('product.index'));
     }
 
+    public function show(Product $product)
+    {
+        //
+    }
+
     public function edit(Product $product) {
         return view('product.edit')->with('product', $product)->with('categories', Category::all());
     }
@@ -35,7 +40,20 @@ class Products extends Controller
 
     public function destroy(Product $product) {
         $product->delete();
-        session()->flash('success', 'Produto excluído com sucesso!');
-        return \redirect(route('product.index'));
+        session()->flash('success', 'Produto desativado com sucesso!');
+        return redirect(route('product.index'));
+    }
+
+    public function trash() {
+        return view('product.trash')->with('products', Product::onlyTrashed()->get());
+    }
+
+    public function restore($id) {
+        $product = Product::onlyTrashed()
+                            ->where('id', $id)
+                            ->firstOrFail();
+        $product->restore();
+        session()->flash('success', 'Produto restaurado com sucesso!');
+        return redirect(route('product.trash'));
     }
 }
