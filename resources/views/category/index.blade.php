@@ -31,6 +31,7 @@
                 <tr>
                     <th>#</th>
                     <th>Nome</th>
+                    <th>Imagem</th>
                     <th>Quantidade de produtos</th>
                     <th>Ações</th>
                 </tr>
@@ -41,6 +42,7 @@
                     <tr>
                         <td>{{ $category->id }}</td>
                         <td>{{ $category->name }}</td>
+                        <td><img style="width: 48px;" src="{{ asset($category->image) }}" alt="Imagem indisponível"></td>
                         <td>{{ $category->products->count() }}</td>
                         <td>
                             <a href="{{ route('category.edit', $category->id) }}"
@@ -62,7 +64,8 @@
         </table>
         <a class="my-4 btn btn-sm btn-success" href="{{ route('category.create') }}">Cadastrar novo
             corredor</a>
-        <a class="my-4 btn btn-sm btn-secondary" href="{{ route('category.trash') }}">Verificar corredores inativos</a>
+        <a class="my-4 btn btn-sm btn-secondary" href="{{ route('category.trash') }}">Verificar
+            corredores inativos</a>
     </main>
 </body>
 

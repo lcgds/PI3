@@ -11,7 +11,7 @@
     @include('layouts.header')
     <main class="container">
         <h1 class="mt-4 mb-3">Editar Produto</h1>
-        <form method="POST" action="{{route('product.update', $product->id)}}">
+        <form method="POST" action="{{route('product.update', $product->id)}}" enctype="multipart/form-data">
             @method('PATCH')
             @csrf
             <div class="form-floating my-3">
@@ -44,6 +44,11 @@
                     @endforeach
                 </select>
                 <label class="form-label" for="category_id">Categoria</label>
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="image">Imagem</label>
+                <input class="form-control" name="image" type="file">
             </div>
 
             <button class="btn btn-success" type="submit">Atualizar</button>

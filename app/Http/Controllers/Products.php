@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 use App\Models\Product;
 use App\Models\Category;
@@ -18,7 +19,22 @@ class Products extends Controller
     }
 
     public function store(Request $request) {
-        Product::create($request->all());
+        if($request->image) {
+            $image = $request->file('image')->store('product');
+            $image = 'storage/' . $image;
+        } else {
+            $image = "storage/product/default.png";
+        }
+
+        Product::create([
+            'name' => $request->name,
+            'brand' => $request->brand,
+            'description' => $request->description,
+            'price' => $request->price,
+            'category_id' => $request->category_id,
+            'image' => $image 
+        ]);
+
         session()->flash('success', 'Produto cadastrado com sucesso!');
         return redirect(route('product.index'));
     }
@@ -33,7 +49,29 @@ class Products extends Controller
     }
 
     public function update(Request $request, Product $product) {
-        $product->update($request->all());
+        if($request->image) {
+            $image = $request->file('image')->store('product');
+            $image = 'storage/' . $image;
+
+            if ($product->image !== 'storage/product/default.png') {
+                Storage::delete(\str_replace('storage/','', $product->image));
+            }
+
+        } else if($product->image === '') {
+            $image = 'storage/product/default.png';
+        } else {
+            $image = $product->image;
+        }
+
+        $product->update([
+            'name' => $request->name,
+            'brand' => $request->brand,
+            'description' => $request->description,
+            'price' => $request->price,
+            'category_id' => $request->category_id,
+            'image' => $image 
+        ]);
+
         session()->flash('success', 'Produto atualizado com sucesso!');
         return redirect(route('product.index'));
     }

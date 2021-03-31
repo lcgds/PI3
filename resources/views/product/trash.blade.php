@@ -31,6 +31,7 @@
                     <th>Descrição</th>
                     <th>Preço</th>
                     <th>Categoria</th>
+                    <th>Imagem</th>
                     <th>Ações</th>
                 </tr>
             </thead>
@@ -43,6 +44,8 @@
                         <td>{{ $product->description }}</td>
                         <td>R$ {{ $product->price }}</td>
                         <td>{{ $product->category->name }}</td>
+                        <td><img style="width: 48px;" src="{{ asset($product->image) }}" alt="Imagem indisponível">
+                        </td>
                         <td>
                             <form class="d-inline" method="POST"
                                 action="{{ route('product.restore', $product->id) }}"
@@ -56,7 +59,8 @@
                 @endforeach
             </tbody>
         </table>
-        <a class="my-4 btn btn-sm btn-primary" href="{{ route('product.index') }}">Verificar produtos ativos</a>
+        <a class="my-4 btn btn-sm btn-primary" href="{{ route('product.index') }}">Verificar produtos
+            ativos</a>
     </main>
 </body>
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 use App\Models\Category;
 use App\Models\Product;
@@ -18,7 +19,17 @@ class Categories extends Controller
     }
 
     public function store(Request $request) {
-        Category::create($request->all());
+        if($request->image) {
+            $image = $request->file('image')->store('category');
+            $image = 'storage/' . $image;
+        } else {
+            $image = 'storage/category/default.png';
+        }
+
+        Category::create([
+            'name' => $request->name,
+            'image' => $image 
+        ]);
 
         session()->flash('success', 'Corredor cadastrado com sucesso!');
 
@@ -35,7 +46,25 @@ class Categories extends Controller
     }
 
     public function update(Request $request, Category $category) {
-        $category->update($request->all());
+        if($request->image) {
+            $image = $request->file('image')->store('category');
+            $image = 'storage/' . $image;
+
+            if ($category->image !== 'storage/category/default.png') {
+                Storage::delete(\str_replace('storage/','', $category->image));
+            }
+
+        } else if($category->image === '') {
+            $image = 'storage/category/default.png';
+        } else {
+            $image = $category->image;
+        }
+
+        $category->update([
+            'name' => $request->name,
+            'image' => $image 
+        ]);
+
         session()->flash('success', 'Corredor atualizado com sucesso!');
         return redirect(route('category.index'));
     }

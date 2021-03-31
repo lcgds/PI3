@@ -31,6 +31,7 @@
                 <tr>
                     <th>#</th>
                     <th>Nome</th>
+                    <th>Imagem</th>
                     <th>Quantidade de produtos</th>
                     <th>Ações</th>
                 </tr>
@@ -41,6 +42,7 @@
                     <tr>
                         <td>{{ $category->id }}</td>
                         <td>{{ $category->name }}</td>
+                        <td><img style="width: 48px;" src="{{ asset($category->image) }}" alt="Imagem indisponível"></td>
                         <td>{{ $category->products->count() }}</td>
                         <td>
                             <form class="d-inline" method="POST"

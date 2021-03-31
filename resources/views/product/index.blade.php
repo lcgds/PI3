@@ -31,6 +31,7 @@
                     <th>Descrição</th>
                     <th>Preço</th>
                     <th>Categoria</th>
+                    <th>Imagem</th>
                     <th>Ações</th>
                 </tr>
             </thead>
@@ -43,6 +44,7 @@
                         <td>{{ $product->description }}</td>
                         <td>R$ {{ $product->price }}</td>
                         <td>{{ $product->category->name }}</td>
+                        <td><img style="width: 48px;" src="{{ asset($product->image) }}" alt="Imagem indisponível"></td>
                         <td>
                             <a href="#" class="btn btn-sm btn-primary">Visualizar</a>
                             <a href="{{ route('product.edit', $product->id) }}"
