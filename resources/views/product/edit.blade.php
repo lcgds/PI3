@@ -46,6 +46,18 @@
                 <label class="form-label" for="category_id">Categoria</label>
             </div>
 
+            <div class="form-group input-group my-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="tagsGroup">Tags</label>
+                </div>
+
+                <select multiple class="form-control custom-select" id="tagsGroup" name="tags[]">
+                    @foreach($tags as $tag)
+                        <option value="{{$tag->id}}" @if($product->tags->contains($tag->id)) selected @endif>{{$tag->name}}</option>
+                    @endforeach
+                </select>
+            </div>
+
             <div class="my-3">
                 <label class="form-label" for="image">Imagem</label>
                 <input class="form-control" name="image" type="file">

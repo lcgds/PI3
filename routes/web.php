@@ -18,7 +18,7 @@ use App\Http\Controllers\TagController;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -26,23 +26,29 @@ Route::get('/dashboard', function () {
 
 require __DIR__.'/auth.php';
 
-
-//Categories
-
-Route::resource('/category', Categories::class);
-Route::get('/trash/category', [Categories::class, 'trash'])->name('category.trash');
-Route::patch('/category/restore/{id}', [Categories::class, 'restore'])->name('category.restore');
+Route::resource('/product', Products::class, ['only' => ['show']]);
 
 
-//Products
+Route::group(['middleware' => 'isAdmin'], function () {
 
-Route::resource('/product', Products::class);
-Route::get('/trash/product', [Products::class, 'trash'])->name('product.trash');
-Route::patch('/product/restore/{id}', [Products::class, 'restore'])->name('product.restore');
+    //Categories
+
+    Route::resource('/category', Categories::class);
+    Route::get('/trash/category', [Categories::class, 'trash'])->name('category.trash');
+    Route::patch('/category/restore/{id}', [Categories::class, 'restore'])->name('category.restore');
 
 
-//Tags
+    //Products
 
-Route::resource('/tag', TagController::class);
-Route::get('/trash/tag', [TagController::class, 'trash'])->name('tag.trash');
-Route::patch('/tag/restore/{id}', [TagController::class, 'restore'])->name('tag.restore');
+    Route::resource('/product', Products::class, ['except' => ['show']]);
+    Route::get('/trash/product', [Products::class, 'trash'])->name('product.trash');
+    Route::patch('/product/restore/{id}', [Products::class, 'restore'])->name('product.restore');
+
+
+    //Tags
+
+    Route::resource('/tag', TagController::class);
+    Route::get('/trash/tag', [TagController::class, 'trash'])->name('tag.trash');
+    Route::patch('/tag/restore/{id}', [TagController::class, 'restore'])->name('tag.restore');
+
+});
