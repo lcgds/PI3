@@ -28,7 +28,9 @@ class TagController extends Controller
 
     public function show(Tag $tag)
     {
-        //
+        return view('tag.show')
+            ->with('tag', $tag)
+            ->with('products', $tag->products()->paginate(12));
     }
 
     public function edit(Tag $tag)
@@ -47,11 +49,14 @@ class TagController extends Controller
 
     public function destroy(Tag $tag)
     {
-        $tag->delete();
-
-        session()->flash('success', 'Tag desativada com sucesso!');
-
-        return redirect(route('tag.index'));
+        if($tag->products()->count()>0) {
+            session()->flash('warning', 'Não é possível desativar uma categoria que contenha produtos ativos.');
+            return redirect(route('tag.index'));
+        } else {
+            $tag->delete();
+            session()->flash('success', 'Tag desativada com sucesso!');
+            return redirect(route('tag.index'));
+        }    
     }
 
     public function trash() {

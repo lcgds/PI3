@@ -12,7 +12,7 @@ class Product extends Model
     use HasFactory;
     use SoftDeletes;
     
-    protected $fillable = ['name', 'brand', 'description', 'price', 'category_id', 'image'];
+    protected $fillable = ['name', 'brand', 'description', 'price', 'category_id', 'image', 'spotlight'];
 
     public function category() {
         return $this->belongsTo(Category::class);
@@ -20,5 +20,9 @@ class Product extends Model
 
     public function tags() {
         return $this->belongsToMany(Tag::class);
+    }
+
+    public static function getBestProducts() {
+        return Product::all()->where('spotlight', '=', 1)->take(4);
     }
 }

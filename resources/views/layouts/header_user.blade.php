@@ -1,4 +1,4 @@
-<header class="mb-4">
+<header class="mb-5">
     <nav class="navbar navbar-expand-md navbar-dark larvel-color">
         <div class="container">
             <!-- Brand -->
@@ -18,34 +18,24 @@
 
                 <ul class="navbar-nav mt-lg-2 mt-md-2">
 
-                    <li class="nav-item mx-2">
-                        <a class="align-baseline p-0 text-reset text-decoration-none nav-link"
-                            href="{{ route('category.index') }}">Corredores</a>
+                    <li class="nav-item mx-2 dropdown">
+
+                        <a class="p-0 text-reset text-decoration-none nav-link dropdown-toggle" href="#"
+                            id="navbarDropdownMenuCategory" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Corredores
+                        </a>
+
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuCategory">
+                            @foreach(\App\Models\Category::all() as $category)
+                                <li><a class="dropdown-item" href="{{ route('category.show', $category->id) }}">{{$category->name}}</a></li>
+                            @endforeach
+                        </ul>
+                        
                     </li>
 
                     <li class="nav-item mx-2">
                         <a class="p-0 text-reset text-decoration-none nav-link"
                             href="{{ route('product.index') }}">Produtos</a>
-                    </li>
-
-                    <li class="nav-item mx-2">
-                        <a class="p-0 text-reset text-decoration-none nav-link"
-                            href="{{ route('tag.index') }}">Tags</a>
-                    </li>
-
-                    <li class="nav-item mx-2 dropdown">
-
-                        <a class="p-0 text-reset text-decoration-none nav-link dropdown-toggle" href="#"
-                            id="navbarDropdownMenuCategory" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Categorias
-                        </a>
-
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuCategory">
-                            @foreach(\App\Models\Category::all() as $category)
-                                <li><a class="dropdown-item" href="#">{{$category->name}}</a></li>
-                            @endforeach
-                        </ul>
-                        
                     </li>
 
                     <li class="nav-item mx-2 dropdown">
@@ -57,7 +47,7 @@
 
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuTags">
                             @foreach(\App\Models\Tag::all() as $tag)
-                                <li><a class="dropdown-item" href="#">{{$tag->name}}</a></li>
+                                <li><a class="dropdown-item" href="{{ route('tag.show', $tag->id) }}">{{$tag->name}}</a></li>
                             @endforeach
                         </ul>
                         

@@ -18,11 +18,7 @@
 
     <main class="container">
 
-        @if(session()->has('success'))
-            <div class="alert alert-success my-4" role="alert">
-                {{ session()->get('success') }}
-            </div>
-        @endif
+        @include('layouts.sessions')
 
         <h1 class="my-4">Lista de Corredores Desativados</h1>
         <table class="table table-bordered table-hover caption-top">
@@ -42,7 +38,8 @@
                     <tr>
                         <td>{{ $category->id }}</td>
                         <td>{{ $category->name }}</td>
-                        <td><img style="width: 48px;" src="{{ asset($category->image) }}" alt="Imagem indisponível"></td>
+                        <td><img style="width: 48px;" src="{{ asset($category->image) }}" alt="Imagem indisponível">
+                        </td>
                         <td>{{ $category->products->count() }}</td>
                         <td>
                             <form class="d-inline" method="POST"
@@ -58,7 +55,8 @@
 
             </tbody>
         </table>
-        <a class="my-4 btn btn-sm btn-primary" href="{{ route('category.index') }}">Verificar categorias ativas</a>
+        <a class="my-4 btn btn-sm btn-primary" href="{{ route('category.index') }}">Verificar
+            categorias ativas</a>
     </main>
 </body>
 

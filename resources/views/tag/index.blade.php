@@ -16,11 +16,7 @@
     @include('layouts.header')
     <main class="container">
 
-        @if(session()->has('success'))
-            <div class="alert alert-success my-4" role="alert">
-                {{ session()->get('success') }}
-            </div>
-        @endif
+        @include('layouts.sessions')
 
         <h1 class="my-4">Lista de Tags</h1>
         <table class="table table-bordered table-hover caption-top">
@@ -29,6 +25,7 @@
                 <tr>
                     <th>#</th>
                     <th>Nome</th>
+                    <th>Quantidade de produtos</th>
                     <th>Ações</th>
                 </tr>
             </thead>
@@ -38,6 +35,7 @@
                     <tr>
                         <td>{{ $tag->id }}</td>
                         <td>{{ $tag->name }}</td>
+                        <td>{{ $tag->products()->count() }}</td>
                         <td>
                             <a href=" {{ route('tag.edit', $tag->id) }}"
                                 class="btn btn-sm btn-warning">Editar</a>
@@ -58,7 +56,8 @@
         </table>
         <a class="my-4 btn btn-sm btn-success" href=" {{ route('tag.create') }}">Cadastrar nova
             tag</a>
-        <a class="my-4 btn btn-sm btn-secondary" href="{{ route('tag.trash') }}">Verificar tags inativas</a>
+        <a class="my-4 btn btn-sm btn-secondary" href="{{ route('tag.trash') }}">Verificar tags
+            inativas</a>
     </main>
 </body>
 

@@ -10,7 +10,7 @@
     @include('layouts.header')
     <main class="container">
         <h1 class="mt-4 mb-3">Cadastrar Corredor</h1>
-        <form method="POST" action="{{route('category.store')}}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('category.store') }}" enctype="multipart/form-data">
             @csrf
             <div class="form-floating my-3">
                 <input class="form-control" name="name" type="text" focused>

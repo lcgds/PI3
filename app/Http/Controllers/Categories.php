@@ -38,7 +38,9 @@ class Categories extends Controller
 
     public function show(Category $category)
     {
-        //
+        return view('category.show')
+            ->with('category', $category)
+            ->with('products', $category->products()->paginate(12));
     }
 
     public function edit(Category $category) {
@@ -70,9 +72,14 @@ class Categories extends Controller
     }
 
     public function destroy(Category $category) {
-        $category->delete();
-        session()->flash('success', 'Corredor desativado com sucesso!');
-        return redirect(route('category.index'));
+        if($category->products()->count() > 0) {
+            session()->flash('warning', 'Não é possível desativar uma categoria que contenha produtos ativos.');
+            return redirect(route('category.index'));
+        } else {
+            $category->delete();
+            session()->flash('success', 'Corredor desativado com sucesso!');
+            return redirect(route('category.index'));
+        }        
     }
 
     public function trash() {

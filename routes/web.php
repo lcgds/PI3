@@ -17,7 +17,7 @@ use App\Http\Controllers\TagController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 })->name('home');
 
 Route::get('/dashboard', function () {
@@ -26,14 +26,11 @@ Route::get('/dashboard', function () {
 
 require __DIR__.'/auth.php';
 
-Route::resource('/product', Products::class, ['only' => ['show']]);
-
-
 Route::group(['middleware' => 'isAdmin'], function () {
 
     //Categories
 
-    Route::resource('/category', Categories::class);
+    Route::resource('/category', Categories::class, ['except' => ['show']]);
     Route::get('/trash/category', [Categories::class, 'trash'])->name('category.trash');
     Route::patch('/category/restore/{id}', [Categories::class, 'restore'])->name('category.restore');
 
@@ -47,8 +44,12 @@ Route::group(['middleware' => 'isAdmin'], function () {
 
     //Tags
 
-    Route::resource('/tag', TagController::class);
+    Route::resource('/tag', TagController::class, ['except' => ['show']]);
     Route::get('/trash/tag', [TagController::class, 'trash'])->name('tag.trash');
     Route::patch('/tag/restore/{id}', [TagController::class, 'restore'])->name('tag.restore');
 
 });
+
+Route::resource('/category', Categories::class, ['only' => ['show']]);
+Route::resource('/product', Products::class, ['only' => ['show']]);  
+Route::resource('/tag', TagController::class, ['only' => ['show']]);  

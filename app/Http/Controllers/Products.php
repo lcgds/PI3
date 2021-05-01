@@ -33,7 +33,8 @@ class Products extends Controller
             'description' => $request->description,
             'price' => $request->price,
             'category_id' => $request->category_id,
-            'image' => $image 
+            'image' => $image,
+            'spotlight' => $request->spotlight
         ]);
 
         $product->tags()->sync($request->tags);
@@ -44,7 +45,8 @@ class Products extends Controller
 
     public function show(Product $product)
     {
-        dd($product);
+        return view('product.show')
+        ->with('product', $product);
     }
 
     public function edit(Product $product) {
@@ -72,7 +74,8 @@ class Products extends Controller
             'description' => $request->description,
             'price' => $request->price,
             'category_id' => $request->category_id,
-            'image' => $image 
+            'image' => $image,
+            'spotlight' => $request->spotlight
         ]);
 
         $product->tags()->sync($request->tags);

@@ -16,11 +16,7 @@
     @include('layouts.header')
     <main class="container">
 
-        @if(session()->has('success'))
-            <div class="alert alert-success my-4" role="alert">
-                {{ session()->get('success') }}
-            </div>
-        @endif
+        @include('layouts.sessions')
 
         <h1 class="my-4">Lista de Tags Desativadas</h1>
         <table class="table table-bordered table-hover caption-top">
@@ -52,7 +48,8 @@
 
             </tbody>
         </table>
-        <a class="my-4 btn btn-sm btn-primary" href="{{ route('tag.index') }}">Verificar tags ativas</a>
+        <a class="my-4 btn btn-sm btn-primary" href="{{ route('tag.index') }}">Verificar tags
+            ativas</a>
     </main>
 </body>
 

@@ -18,11 +18,8 @@
 
     <main class="container">
 
-        @if(session()->has('success'))
-            <div class="alert alert-success my-4" role="alert">
-                {{ session()->get('success') }}
-            </div>
-        @endif
+        @include('layouts.sessions')
+
 
         <h1 class="my-4">Lista de Corredores</h1>
         <table class="table table-bordered table-hover caption-top">
@@ -42,7 +39,8 @@
                     <tr>
                         <td>{{ $category->id }}</td>
                         <td>{{ $category->name }}</td>
-                        <td><img style="width: 48px;" src="{{ asset($category->image) }}" alt="Imagem indisponível"></td>
+                        <td><img style="width: 48px;" src="{{ asset($category->image) }}" alt="Imagem indisponível">
+                        </td>
                         <td>{{ $category->products->count() }}</td>
                         <td>
                             <a href="{{ route('category.edit', $category->id) }}"
