@@ -1,4 +1,4 @@
-<footer class="footer mt-5 py-4 text-white larvel-color">
+<footer class="footer mt-5 pt-5 pb-4 text-white larvel-color">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-sm-10 col-md-6 col-lg-6">

@@ -52,8 +52,30 @@
                         </ul>
                         
                     </li>
-
                 </ul>
+                <ul class="navbar-nav ms-auto mt-lg-2 mt-md-2">
+                        @if (Auth()->user())
+                            <li class="nav-item mx-2">
+                                <i title="{{Auth()->user()->name}}" class="align-baseline fs-5 bi bi-person-circle"></i>
+                            </li>
+                            <li class="nav-item mx-2">
+                                <a class="p-0 text-reset text-decoration-none nav-link" href="{{ route('cart.show') }}">
+                                    <i class="align-baseline fs-5 bi bi-cart position-relative">
+                                        @if ( (\App\Models\Cart::count()) > 0 )
+                                            <span style="font-size: 10px;" class="badge rounded-pill text-dark bg-warning position-absolute top-0 start-100 translate-middle">{{ \App\Models\Cart::count() }}</span>
+                                        @endif
+                                    </i>
+                                </a>
+                            </li>
+                        @else
+                            <li class="nav-item mx-2">
+                                <a class="p-0 text-reset text-decoration-none nav-link" href="{{ route('register') }}">Cadastro</a>
+                            </li>
+                            <li class="nav-item mx-2">
+                                <a class="p-0 text-reset text-decoration-none nav-link" href="{{ route('login') }}">Login</a>
+                            </li>
+                        @endif
+                    </ul>
             </div>
         </div>
     </nav>

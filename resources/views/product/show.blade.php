@@ -19,7 +19,7 @@
 
             <!-- Foto -->
             <div class="col-sm-10 col-md-5 col-lg-5 text-center">
-                <img class="img-fluid h-75" src="{{ asset($product->image) }}" alt="Foto de {{ $product->name }}">
+                <img class="img-fluid w-75" src="{{ asset($product->image) }}" alt="Foto de {{ $product->name }}">
             </div>
 
             <!-- Descrição -->
@@ -32,7 +32,7 @@
                     <p class="my-2 text-start">{{ $product->description }}</p>
                     <p class="mt-3 h5">R$ {{ number_format($product->price, 2, ',', '.') }}</p>
 
-                    <button class="my-2 btn btn-success">Adicionar ao carrinho</button>
+                    <a href="{{ route('cart.add', $product->id) }}" class="my-2 btn btn-success">Adicionar ao carrinho</a>
                 </div>
 
                 <div class="mt-3 d-flex flex-row flex-wrap">

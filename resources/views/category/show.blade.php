@@ -24,7 +24,7 @@
                         <p class="card-text">R$
                             {{ number_format($product->price, 2, ',', '.') }}
                         </p>
-                        <a href="{{ route('product.show', $product->id) }}"
+                        <a href="{{ route('cart.add', $product->id) }}"
                             class="btn btn-primary">Comprar</a>
                     </div>
                 </div>
